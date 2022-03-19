@@ -1,12 +1,14 @@
 from flask import Flask  # importação do flask
 from flask_restful import Api  # biblioteca que vai auxiliar na criacao da API
-from resources.receita import Receitas
+from resources.receita import Receitas, Receita
+
 app = Flask(__name__)  # instancia o Flask, basicamente é a aplicaçao
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///banco.db'  #define o caminho e o nome do banco
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # evitar msg de erro
 api = Api(app)  # instancia API
 
 api.add_resource(Receitas, '/receitas')
+api.add_resource(Receita, '/receitas/<string:id>')
 
 @app.before_first_request
 def cria_banco():
