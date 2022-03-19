@@ -23,7 +23,7 @@ class ReceitaModel(banco.Model):
         }
 
     @classmethod
-    def existe_hotel(cls, id):
+    def existe_receita(cls, id):
         receita = cls.query.filter_by(id=id).first()
         if receita:
             return receita
