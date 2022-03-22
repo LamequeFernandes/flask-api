@@ -1,6 +1,8 @@
 from email.policy import default
+from time import strftime
 from sql_alchemy import banco
-from datetime import date
+from datetime import date, datetime
+
 
 class DespesaModel(banco.Model):
     __tablename__ = 'despesas'
@@ -8,8 +10,8 @@ class DespesaModel(banco.Model):
     id = banco.Column(banco.Integer, primary_key=True)
     descricao = banco.Column(banco.String(2000))
     valor = banco.Column(banco.Float(precision=2))
-    data = banco.Column(banco.Date)
-    print(data)
+    data = banco.Column(banco.DateTime)
+
 
     def __init__(self, id, descricao, valor, data):
         self.id = id
@@ -34,5 +36,4 @@ class DespesaModel(banco.Model):
 
     def salva_despesa(self):
         banco.session.add(self)
-        #print('cade vc caraio', date.today())
         banco.session.commit()
