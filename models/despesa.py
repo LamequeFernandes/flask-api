@@ -10,7 +10,7 @@ class DespesaModel(banco.Model):
     id = banco.Column(banco.Integer, primary_key=True)
     descricao = banco.Column(banco.String(2000))
     valor = banco.Column(banco.Float(precision=2))
-    data = banco.Column(banco.DateTime)
+    data = banco.Column(banco.Date)
 
 
     def __init__(self, id, descricao, valor, data):

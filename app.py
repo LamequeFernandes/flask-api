@@ -3,13 +3,15 @@ from flask_restful import Api  # biblioteca que vai auxiliar na criacao da API
 from resources.receita import Receitas, Receita
 from resources.despesa import Despesa, Despesas
 from flask_migrate import Migrate
+from sql_alchemy import SQLAlchemy
 
 
 app = Flask(__name__)  # instancia o Flask, basicamente é a aplicaçao
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///banco.db'  #define o caminho e o nome do banco
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # evitar msg de erro
 api = Api(app)  # instancia API
-migrate = Migrate()
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 api.add_resource(Receitas, '/receitas')
 api.add_resource(Receita, '/receitas/<string:id>')
@@ -25,3 +27,14 @@ if __name__ == '__main__':  # vai rodar se chamar esse arquivo direto no termina
     banco.init_app(app)
     migrate.init_app(app,banco)
     app.run(debug=True)
+
+'''
+Fazer Migração:
+
+* flask db init
+* flask db migrate
+* 
+flask db init to initialize the database
+flask db migrate to migrate new changes
+flask db upgrade to upgrade and so on.
+'''
