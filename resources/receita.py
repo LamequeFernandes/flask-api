@@ -20,3 +20,12 @@ class Receita(Resource):
         receita = ReceitaModel(id, **dados)
         receita.salva_receita()
         return receita.json(), 200
+
+    def put(self, id):
+        receita_encontrada = ReceitaModel.existe_receita(id)
+        if receita_encontrada:
+            dados = self.argumentos.parse_args()            
+            receita_encontrada.update_receita(**dados)
+            receita_encontrada.salva_receita()
+            return receita_encontrada.json(), 200
+        return {"message": "Receita id '{}' already exist".format(id)}, 400 

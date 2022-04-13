@@ -32,3 +32,8 @@ class ReceitaModel(banco.Model):
     def salva_receita(self):
         banco.session.add(self)
         banco.session.commit()
+        
+    def update_receita(self, descricao, valor, data):
+        self.descricao = descricao
+        self.valor = valor
+        self.data = data
