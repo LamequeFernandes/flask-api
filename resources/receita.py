@@ -20,3 +20,10 @@ class Receita(Resource):
         receita = ReceitaModel(id, **dados)
         receita.salva_receita()
         return receita.json(), 200
+
+    def delete(self, id):
+        receita = ReceitaModel.existe_receita(id)
+        if receita:
+            receita.delete_receita()
+            return {'message': 'Receita deleted'}, 200
+        return {'message': 'Receita not found'}, 404
