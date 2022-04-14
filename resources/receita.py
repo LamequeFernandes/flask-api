@@ -1,4 +1,3 @@
-from importlib.resources import read_text
 from flask_restful import Resource, reqparse  #reqparse recebe os elementos da requisição
 from models.receita import ReceitaModel
 
@@ -21,9 +20,3 @@ class Receita(Resource):
         receita = ReceitaModel(id, **dados)
         receita.salva_receita()
         return receita.json(), 200
-
-    def get(self, id):
-        receita = ReceitaModel.existe_receita(id)
-        if receita:
-            return receita.json(), 200
-        return {"message": "Receita not found."}, 404
